@@ -4,11 +4,20 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App'
+import { BrowserRouter, Switch, Route} from 'react-router-dom'
+import UserArea from './pages/UserArea'
+import Componente404 from './pages/Componente404'
+import CadastrarPersonagem from './pages/CadastroPersonagem'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App/>
-  </React.StrictMode>,
+  <BrowserRouter>
+    <Switch>
+        <Route path="/" exact={true} component={App} />
+        <Route path="/userArea/home" exact={true} component={UserArea} />
+        <Route path="/userArea/cadastro" exact={true} component={CadastrarPersonagem} />
+        <Route path='*' component={Componente404} />
+    </Switch>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
