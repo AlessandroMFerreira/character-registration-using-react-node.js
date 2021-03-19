@@ -2,10 +2,10 @@ module.exports = (app) => {
 
   const service = require('../service/movieCharacterService')
 
-  app.post('/character/add/:userId', async (req, res) => {
-    const retorno = await service.insertQuery(req.body, req.params.userId)
+  app.post('/character/add', async (req, res) => {
+    const retorno = await service.insertQuery(req.body)
     if(retorno){
-      res.json(retorno)
+      res.status(201).send()
     } else {
       res.status(401).send()
     }

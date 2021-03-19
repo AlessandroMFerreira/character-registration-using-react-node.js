@@ -15,7 +15,7 @@ class Menu extends React.Component{
   render (){
     return(
       <div>
-        <SideBar/>
+        <SideBar background="home"/>
         <div className="FundoPgs">
           Bem Vindo {this.getNickName()}
         </div>

@@ -146,12 +146,7 @@
   color: white;
 }
 
-/* Links on mouse-over */
-.Sidebar a:hover:not(.active) {
-  background-color: rgba(220, 53, 70, 0.5);
-  transition: 0.6s;
-  color: white;
-}
+
 
 /* On screens that are less than 700px wide, make the sidebar into a topbar */
 @media screen and (max-width: 700px) {
@@ -179,4 +174,27 @@
 .InputText {
   width: 100vw;
   height: 100vh;
+}
+
+.LabelArquivo{
+  background-color: white;
+  font-weight: bold;
+  padding: 0.5%;
+  border: 1px solid;
+  border-radius: 00.5em;
+}
+
+.BtnCadastro{
+  background-color: white;
+  font-weight: bold;
+  padding: 0.5%;
+  border: 1px solid;
+  border-radius: 00.5em;
+}
+
+.Container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start
 }

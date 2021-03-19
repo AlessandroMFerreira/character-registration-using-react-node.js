@@ -8,6 +8,7 @@ import { BrowserRouter, Switch, Route} from 'react-router-dom'
 import UserArea from './pages/UserArea'
 import Componente404 from './pages/Componente404'
 import CadastrarPersonagem from './pages/CadastroPersonagem'
+import VisualizarDados from './pages/VisualizarDados'
 
 ReactDOM.render(
   <BrowserRouter>
@@ -15,6 +16,7 @@ ReactDOM.render(
         <Route path="/" exact={true} component={App} />
         <Route path="/userArea/home" exact={true} component={UserArea} />
         <Route path="/userArea/cadastro" exact={true} component={CadastrarPersonagem} />
+        <Route path="/userArea/listar" exact={true} component={VisualizarDados} />
         <Route path='*' component={Componente404} />
     </Switch>
   </BrowserRouter>,
