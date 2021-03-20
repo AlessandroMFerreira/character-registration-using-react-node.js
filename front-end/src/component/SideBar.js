@@ -34,6 +34,7 @@ class SideBar extends React.Component{
         <a href="/userArea/home" id="Home" style={styleHome}>Home</a>
         <a href="/userArea/cadastro" id="Cadastro" style={styleCadastro}>Cadastrar personagem</a>
         <a href="/userArea/listar" id="Listar" style={styleVisualizar}>Listar personagens</a>
+        <a href="/" id="Listar">Sair</a>
       </div>
     )
   }

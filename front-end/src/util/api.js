@@ -21,6 +21,22 @@ class Api {
 
     return retorno
   }
+
+  httpGetId(){
+    const config = {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Origin': ''
+      }
+    }
+    const url = `${baseUrl}${port}${this.route}`
+
+    const retorno = fetch(url, config).then(response => response.json()).catch(err => console.log(err))
+
+    return retorno
+  }
   httpPost(obj){
     const config = {
       method: 'POST',

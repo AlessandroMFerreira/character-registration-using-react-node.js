@@ -1,5 +1,8 @@
 import './App.css';
 
+function redirect(){
+  window.location.href = 'http://localhost:3000/userArea/home'
+}
 
 function App() {
 
@@ -15,7 +18,7 @@ function App() {
         </div>
         <br/>
         <div className="Row JustifyCenter">
-        <button className="Btn">Entrar</button>
+        <button className="Btn" onClick={redirect}>Entrar</button>
         </div>
       </div>
     </div>

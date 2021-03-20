@@ -9,6 +9,7 @@ import UserArea from './pages/UserArea'
 import Componente404 from './pages/Componente404'
 import CadastrarPersonagem from './pages/CadastroPersonagem'
 import VisualizarDados from './pages/VisualizarDados'
+import VisualizarPersonagem from './pages/VisualizarPersonagem'
 
 ReactDOM.render(
   <BrowserRouter>
@@ -17,6 +18,7 @@ ReactDOM.render(
         <Route path="/userArea/home" exact={true} component={UserArea} />
         <Route path="/userArea/cadastro" exact={true} component={CadastrarPersonagem} />
         <Route path="/userArea/listar" exact={true} component={VisualizarDados} />
+        <Route path="/userArea/personagem/:id" exact={true} component={VisualizarPersonagem} />
         <Route path='*' component={Componente404} />
     </Switch>
   </BrowserRouter>,
