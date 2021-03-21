@@ -3,10 +3,13 @@ import api from '../util/api'
 
 class VisualizarPersonagem extends React.Component {
 
-    state = {
+  constructor(props){
+    super(props)
+    this.state = {
+      mostrar: false,
       dados: null
     }
-
+  }
     goBack(){
       window.location.href="http://localhost:3000/userArea/listar"
     }
@@ -32,11 +35,35 @@ class VisualizarPersonagem extends React.Component {
         dados: retorno
       })
 
+      // validar usuario
+      const user = window.sessionStorage.getItem('user')
+    const password = atob(window.sessionStorage.getItem('password'))
+    const req = new api(`/user/validation/${user}/${password}`)
+    const res = await req.httpGetUser()
+
+    if(!res){
+      window.sessionStorage.removeItem('user')
+      window.sessionStorage.removeItem('password')
+      window.location.href="http://localhost:3000/"
+      this.setState({
+        mostrar : false
+      })
+    } else {
+      this.setState({
+        mostrar : true
+      })
+    }
+
     }
   render(){
+
+    let content = null
+    if(this.state.mostrar){
+      content  = this.state.dados
+    } 
     return(
       <div>
-        {this.state.dados}
+        {content}
       </div>
     )
   }

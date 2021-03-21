@@ -10,11 +10,13 @@ import Componente404 from './pages/Componente404'
 import CadastrarPersonagem from './pages/CadastroPersonagem'
 import VisualizarDados from './pages/VisualizarDados'
 import VisualizarPersonagem from './pages/VisualizarPersonagem'
+import Cadastro from './pages/Cadastro'
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
         <Route path="/" exact={true} component={App} />
+        <Route path="/cadastro" exact={true} component={Cadastro} />
         <Route path="/userArea/home" exact={true} component={UserArea} />
         <Route path="/userArea/cadastro" exact={true} component={CadastrarPersonagem} />
         <Route path="/userArea/listar" exact={true} component={VisualizarDados} />

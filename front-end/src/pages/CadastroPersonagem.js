@@ -6,6 +6,36 @@ import 'react-toastify/dist/ReactToastify.css';
 import Personagem from '../entity/Personagem'
 
 class CadastrarPersonagem extends React.Component{
+
+  constructor(props){
+    super(props)
+    this.state = {
+      mostrar: false
+    }
+  }
+
+  async componentDidMount(){
+    const user = window.sessionStorage.getItem('user')
+    const password = atob(window.sessionStorage.getItem('password'))
+    const request = new api(`/user/validation/${user}/${password}`)
+    const response = await request.httpGetUser()
+
+    if(!response){
+      window.sessionStorage.removeItem('user')
+      window.sessionStorage.removeItem('password')
+      window.location.href="http://localhost:3000/"
+      this.setState({
+        mostrar : false
+      })
+    } else {
+      this.setState({
+        mostrar : true,
+        tipo: response.tipo
+      })
+    }
+  }
+
+
   async request(e){
     e.preventDefault()
     const nome = document.querySelector('#nome').value
@@ -61,7 +91,11 @@ class CadastrarPersonagem extends React.Component{
   }
 
   render(){
-    return (
+
+    let content = null
+    let tipo = this.state.tipo
+    if(this.state.mostrar && tipo === 'TP1'){
+      content  = 
       <div>
         <SideBar background="cadastro"/>
         <div style={{position: 'stick', backgroundColor: '#b9babd', backgroundSize: 'cover', height: '100vh', paddingTop: '2%'}}>
@@ -74,6 +108,21 @@ class CadastrarPersonagem extends React.Component{
           </div>
         </div>
         <ToastContainer />
+      </div>
+    } else {
+      content = <div>
+        <SideBar background="cadastro"/>
+        <div style={{position: 'stick', backgroundColor: '#b9babd', backgroundSize: 'cover', height: '100vh', paddingTop: '2%'}}>
+          <div style={{paddingLeft: '10%', textAlign: 'center'}}>
+            <div>Você não possui permissão para cadastrar personagens. Contacte o adiministrador</div>
+          </div>
+        </div>
+        <ToastContainer />
+      </div>
+    }
+    return(
+      <div>
+        {content}
       </div>
     )
   }

@@ -67,14 +67,6 @@
   display: flex;
   margin-bottom: 1%;
 }
-.Btn{
-  color: white;
-  background-color: rgba(52, 58, 64, 1);
-  border: 1px solid;
-  border-radius: 0.5em;
-  padding: 5%;
-  border-color: black;
-}
 .NoteFoundMain{
   background-color: rgba(52, 58, 64, 1);
   background-size: cover;
@@ -197,4 +189,15 @@
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: flex-start
+}
+
+.A{
+  text-decoration: none;
+  color: white;
+
+}
+
+.A:hover{
+  text-decoration: none;
+  color: white;
 }

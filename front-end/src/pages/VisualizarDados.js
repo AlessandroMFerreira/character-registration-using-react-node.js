@@ -7,9 +7,29 @@ class VisualizarDados extends React.Component{
     super(props)
     this.getDados = this.getDados.bind(this)
     this.abrirPersonagem = this.abrirPersonagem.bind(this)
+    this.state = {
+      mostrar: false,
+      dados: []
+    }
   }
-  state = {
-    dados: []
+  async componentDidMount(){
+    const user = window.sessionStorage.getItem('user')
+    const password = atob(window.sessionStorage.getItem('password'))
+    const request = new api(`/user/validation/${user}/${password}`)
+    const response = await request.httpGetUser()
+
+    if(!response){
+      window.sessionStorage.removeItem('user')
+      window.sessionStorage.removeItem('password')
+      window.location.href="http://localhost:3000/"
+      this.setState({
+        mostrar : false
+      })
+    } else {
+      this.setState({
+        mostrar : true
+      })
+    }
   }
   abrirPersonagem (id){
     window.location.href=`http://localhost:3000/userArea/personagem/${id}`
@@ -41,7 +61,10 @@ class VisualizarDados extends React.Component{
         dados: this.state.dados.slice(0,9)
       })
     }
-    return(
+
+    let content = null
+    if(this.state.mostrar){
+      content  = 
       <div>
         <SideBar background="visualizar"/>
         <div style={{position: 'stick', paddingTop: '2%'}}>
@@ -54,6 +77,11 @@ class VisualizarDados extends React.Component{
             </Container>
           </div>
         </div>
+      </div>
+    } 
+    return(
+      <div>
+        {content}
       </div>
     )
   }

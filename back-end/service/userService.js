@@ -51,11 +51,11 @@ module.exports = {
     }
   },
 
-  validateUser: async (id, password) => {
+  validateUser: async (user, password) => {
     let retorno = ''
-    let query = `SELECT senha FROM ${table} WHERE id = ${id}`
+    let query = `SELECT usuario, senha, tipo FROM ${table} WHERE usuario = '${user}'`
     retorno = await repositorio.validateUser(query)
-    if(retorno){
+    if(retorno.length > 0){
       function compare(){
         return new Promise(resolve => {
           bcrypt.compare(password, retorno[0].senha, (err, result) => {
@@ -68,9 +68,17 @@ module.exports = {
         })
       }
       const validar = await compare()
-      return validar
+      if(validar){
+		  const obj = {
+			usuario: retorno[0].usuario,
+			tipo: retorno[0].tipo
+		  }
+		  return obj
+	  } else {
+		  return false
+	  }
     } else {
-      return 'Nenhum usuario encontrado.'
+      return false
     }
   },
 
