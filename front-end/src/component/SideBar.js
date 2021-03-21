@@ -5,6 +5,7 @@ class SideBar extends React.Component{
   sair(){
     window.sessionStorage.removeItem('user')
     window.sessionStorage.removeItem('password')
+    window.sessionStorage.removeItem('tipo')
     window.location.href="http://localhost:3000/"
   }
   render(){

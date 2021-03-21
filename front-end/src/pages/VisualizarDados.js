@@ -2,6 +2,9 @@ import React from 'react'
 import SideBar from "../component/SideBar";
 import api from '../util/api'
 import {Container, Col} from 'react-bootstrap'
+import { ToastContainer, toast } from 'react-toastify';
+
+
 class VisualizarDados extends React.Component{
   constructor(props){
     super(props)
@@ -9,8 +12,14 @@ class VisualizarDados extends React.Component{
     this.abrirPersonagem = this.abrirPersonagem.bind(this)
     this.state = {
       mostrar: false,
-      dados: []
+      dados: [],
+      paginado: null,
+      paginaAtual: 1,
+      totalPaginas: 0
     }
+  }
+  componentWillUnmount (){
+    this.setState({})
   }
   async componentDidMount(){
     const user = window.sessionStorage.getItem('user')
@@ -50,18 +59,59 @@ class VisualizarDados extends React.Component{
         </Col>
       )
     })
+    let paginado = null
+    if(retorno.length > 9){
+      paginado = 
+      <div>
+        <button className="BtnCadastro" onClick={() => this.anterior()}>anterior</button>&nbsp;&nbsp;
+        <button className="BtnCadastro" onClick={() => this.proximo()}>próximo</button>
+      </div>
+    }
+    let totalPaginas = retorno.length/9
+    let decimal = String(totalPaginas).split('.')
+    if(Number(decimal[1]) > 0){
+      totalPaginas = Math.round(retorno.length/9) + 1
+    } else {
+      totalPaginas = Number(decimal[0])
+    }
     this.setState({
-      dados: [...retorno]
-    }) 
-
+      totalPaginas: totalPaginas,
+      dados: [...retorno],
+      dadosMostrar: retorno.splice(0,9),
+      paginado: paginado
+    })
+  }
+  proximo(){
+    const dados = Array.from(this.state.dados)
+    if(this.state.paginaAtual < this.state.totalPaginas){
+      let pagina = this.state.paginaAtual + 1
+      let inicio = ((9 * pagina) - 9)
+      this.setState({
+        dadosMostrar: dados.splice(inicio, 9),
+        paginaAtual: pagina
+      })
+    } else {
+      toast.info("Não há mais dados para mostrar...", {
+        position: toast.POSITION.BOTTOM_LEFT
+      });
+    }
+  }
+  anterior (){
+    const dados = Array.from(this.state.dados)
+    if(this.state.paginaAtual > 1){
+      let pagina = this.state.paginaAtual - 1
+      let inicio = ((9 * pagina) - 9)
+      this.setState({
+        dadosMostrar: dados.splice(inicio, 9),
+        paginaAtual: pagina
+      })
+    } else {
+      toast.info("Você está no início da lista...", {
+        position: toast.POSITION.BOTTOM_LEFT
+      });
+    }
   }
   render(){
-    if(this.state.dados.length > 9){
-      this.setState({
-        dados: this.state.dados.slice(0,9)
-      })
-    }
-
     let content = null
     if(this.state.mostrar){
       content  = 
@@ -73,10 +123,14 @@ class VisualizarDados extends React.Component{
           </div>
           <div style={{marginLeft: '30%'}}>
             <Container style={{gridTemplateColumns: 'auto auto auto', display: 'grid'}} fluid>
-              {this.state.dados}
+              {this.state.dadosMostrar}
             </Container>
+            <div style={{marginTop: '4%', marginBottom: '3%'}}>
+                {this.state.paginado}
+            </div>
           </div>
         </div>
+        <ToastContainer />
       </div>
     } 
     return(
